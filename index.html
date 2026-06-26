@@ -1,41 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="midday">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Save Our Wildlife</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <!-- Top bar: wordmark + theme switcher (signature element) -->
+  <header class="topbar">
+    <div class="wordmark">
+      <span class="mark" aria-hidden="true"></span>
+      <span class="wordmark__text">Wild&nbsp;Range<em>&nbsp;/ Field Notes</em></span>
+    </div>
+
+    <nav class="themes" aria-label="Colour scheme">
+      <span class="themes__label">Light of day</span>
+      <div class="themes__swatches" role="group" aria-label="Choose a colour scheme">
+        <button class="swatch" data-set-theme="dawn"   aria-label="Dawn theme"   title="Dawn"></button>
+        <button class="swatch" data-set-theme="midday" aria-label="Midday theme" title="Midday"></button>
+        <button class="swatch" data-set-theme="dusk"   aria-label="Dusk theme"   title="Dusk"></button>
+        <button class="swatch" data-set-theme="night"  aria-label="Night theme"  title="Night"></button>
+        <button class="swatch" data-set-theme="ember"  aria-label="Ember theme"  title="Ember"></button>
+      </div>
+    </nav>
+  </header>
+
   <main class="container">
 
-    <!-- Heading  -->
-    <h1>Save Our Wildlife</h1>
+    <!-- Hero -->
+    <section class="hero reveal">
+      <p class="eyebrow">Conservation Initiative · East African Savanna</p>
+      <h1>Save Our<br><span class="hero__accent">Wildlife</span></h1>
+      <p class="hero__lede">
+        One watering hole. One dry season. Every animal that depends on it.
+      </p>
+    </section>
 
-    <!-- Video with playback controls  -->
-    <video
-      id="wildlifeVideo"
-      controls
-      width="640"
-      poster="poster.jpg"
-      aria-label="Promotional video about wildlife conservation">
-      <source src="wildlife.mp4" type="video/mp4">
-      
-    </video>
+    <!-- Video with playback controls -->
+    <section class="stage reveal">
+      <div class="stage__frame">
+        <video
+          id="wildlifeVideo"
+          controls
+          poster="poster.jpg"
+          aria-label="Promotional video about wildlife conservation">
+          <a href="wildlife.mp4">download the video</a> instead.
+        </video>
+      </div>
 
-    <!-- Short description below the video -->
-    <p class="description">
-      A lone gazelle pauses to drink at a shrinking savanna watering hole, a quiet glimpse of wildlife surviving in an increasingly dry landscape. 
-      Scenes like this remind us why protecting natural habitats and water sources matters. 
-      Join our conservation efforts to keep these animals and their ecosystems thriving.
-    </p>
+      <!-- Toggle button -->
+      <div class="controls">
+        <button id="toggleBtn" class="btn" type="button" aria-controls="wildlifeVideo">
+          <span class="btn__dot" aria-hidden="true"></span>
+          <span id="btnLabel">Hide video</span>
+        </button>
+      </div>
 
-    <!-- Toggle button -->
-    <button id="toggleBtn" type="button" aria-controls="wildlifeVideo">
-      Hide Video
-    </button>
+      <!-- Short description below the video -->
+      <p class="description">
+        A lone gazelle pauses to drink at a shrinking savanna watering hole, a quiet
+        glimpse of wildlife surviving in an increasingly dry landscape. Scenes like this
+        remind us why protecting natural habitats and water sources matters. Join our
+        conservation efforts to keep these animals and their ecosystems thriving.
+      </p>
+    </section>
 
   </main>
+
+  <footer class="footer">
+    <span>Wild Range &middot; Save Our Wildlife</span>
+    <span class="footer__hint">Switch the light of day above &uarr;</span>
+  </footer>
 
   <script src="script.js"></script>
 </body>

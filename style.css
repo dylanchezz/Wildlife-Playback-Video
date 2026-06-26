@@ -1,72 +1,272 @@
-/* ===== Base / Accessibility ===== */
-* {
-  box-sizing: border-box;
+/* =========================================================
+   Save Our Wildlife — "Light of Day" theming
+   Five colour schemes driven by [data-theme] on <html>.
+   ========================================================= */
+
+/* ---- THEME TOKENS ---- */
+:root,
+[data-theme="midday"] {           /* bleached midday savanna */
+  --bg:      #f3ead2;
+  --surface: #fffdf4;
+  --text:    #2f2a18;
+  --muted:   #6f6747;
+  --accent:  #c9a227;             /* gold */
+  --accent-2:#7e8c4f;             /* olive */
+  --border:  #d8caa0;
+  --frame:   #2f2a18;
 }
+
+[data-theme="dawn"] {             /* soft rose dawn */
+  --bg:      #f7e7df;
+  --surface: #fff6f1;
+  --text:    #3c2a2a;
+  --muted:   #8a6a64;
+  --accent:  #e07a5f;             /* coral */
+  --accent-2:#f2a65a;             /* apricot */
+  --border:  #ecccbf;
+  --frame:   #3c2a2a;
+}
+
+[data-theme="dusk"] {             /* magenta/amber dusk */
+  --bg:      #211a2e;
+  --surface: #2d2442;
+  --text:    #f1e9f8;
+  --muted:   #b3a4c9;
+  --accent:  #e84a6f;             /* magenta-pink */
+  --accent-2:#f6a13c;             /* amber */
+  --border:  #44375f;
+  --frame:   #0f0b18;
+}
+
+[data-theme="night"] {            /* moonlit teal night */
+  --bg:      #0e1a24;
+  --surface: #15262f;
+  --text:    #dbe9ef;
+  --muted:   #8fa9b5;
+  --accent:  #2ec4b6;             /* teal */
+  --accent-2:#ff6b6b;             /* coral */
+  --border:  #244149;
+  --frame:   #050d12;
+}
+
+[data-theme="ember"] {            /* campfire ember */
+  --bg:      #1a1310;
+  --surface: #251a14;
+  --text:    #f4e7da;
+  --muted:   #c2a68f;
+  --accent:  #ff7a18;             /* fire orange */
+  --accent-2:#ffd166;             /* spark gold */
+  --border:  #3c2a20;
+  --frame:   #0c0805;
+}
+
+/* ---- RESET / BASE ---- */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  font-family: "DM Sans", system-ui, sans-serif;
   line-height: 1.6;
-  color: #3e2c1c;
-  background-color: #fdf6ec;
+  color: var(--text);
+  background:
+    radial-gradient(120% 80% at 80% -10%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 60%),
+    var(--bg);
+  transition: background-color .5s ease, color .5s ease;
 }
 
+/* ---- TOP BAR ---- */
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem clamp(1rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--border);
+}
+
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  font-family: "Space Mono", monospace;
+  font-size: .82rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.wordmark__text em { color: var(--muted); font-style: normal; }
+.mark {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+.themes { display: flex; align-items: center; gap: .75rem; }
+.themes__label {
+  font-family: "Space Mono", monospace;
+  font-size: .7rem; text-transform: uppercase;
+  letter-spacing: .12em; color: var(--muted);
+}
+.themes__swatches { display: flex; gap: .45rem; }
+
+.swatch {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  padding: 0;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.swatch:hover { transform: scale(1.15); }
+.swatch[aria-current="true"] {
+  box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent);
+}
+/* swatch preview colours (independent of active theme) */
+.swatch[data-set-theme="dawn"]   { background: linear-gradient(135deg,#e07a5f,#f2a65a); }
+.swatch[data-set-theme="midday"] { background: linear-gradient(135deg,#c9a227,#7e8c4f); }
+.swatch[data-set-theme="dusk"]   { background: linear-gradient(135deg,#e84a6f,#f6a13c); }
+.swatch[data-set-theme="night"]  { background: linear-gradient(135deg,#2ec4b6,#0e1a24); }
+.swatch[data-set-theme="ember"]  { background: linear-gradient(135deg,#ff7a18,#ffd166); }
+
+/* ---- LAYOUT ---- */
 .container {
-  max-width: 800px;
+  max-width: 920px;
   margin: 0 auto;
-  padding: 1.5rem;
-  text-align: center;
+  padding: clamp(2rem, 6vw, 5rem) clamp(1rem, 4vw, 3rem);
 }
 
-h1 {
-  color: #a0522d;
-  font-size: 2rem;
+/* ---- HERO ---- */
+.eyebrow {
+  font-family: "Space Mono", monospace;
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--muted);
+  margin: 0 0 1rem;
+}
+.hero h1 {
+  font-family: "Syne", sans-serif;
+  font-weight: 800;
+  font-size: clamp(3rem, 12vw, 7rem);
+  line-height: .92;
+  letter-spacing: -.02em;
+  margin: 0;
+}
+.hero__accent {
+  color: var(--accent);
+  -webkit-text-stroke: 0;
+}
+.hero__lede {
+  max-width: 38ch;
+  margin: 1.5rem 0 0;
+  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+  color: var(--muted);
 }
 
+/* ---- VIDEO STAGE ---- */
+.stage { margin-top: clamp(2.5rem, 6vw, 4rem); }
+
+.stage__frame {
+  position: relative;
+  border: 2px solid var(--frame);
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--frame);
+  box-shadow: 14px 14px 0 0 color-mix(in srgb, var(--accent) 35%, transparent);
+  transition: box-shadow .5s ease;
+}
 video {
+  display: block;
   width: 100%;
   height: auto;
-  max-width: 640px;
-  border-radius: 8px;
-  background-color: #000;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: #000;
 }
 
-.description {
-  max-width: 600px;
-  margin: 1rem auto;
-  font-size: 1.05rem;
-}
-
-button {
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  color: #fff;
-  background-color: #c17817;
-  border: none;
-  border-radius: 6px;
+/* ---- CONTROLS / BUTTON ---- */
+.controls { margin-top: 1.5rem; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  font-family: "Space Mono", monospace;
+  font-size: .92rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--surface);
+  background: var(--text);
+  border: 2px solid var(--text);
+  border-radius: 999px;
+  padding: .8rem 1.5rem;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: transform .15s ease, background-color .25s ease, color .25s ease;
+}
+.btn:hover { transform: translateY(-2px); background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn__dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--accent);
+}
+.btn:hover .btn__dot { background: #fff; }
+
+/* ---- DESCRIPTION ---- */
+.description {
+  max-width: 60ch;
+  margin: 1.8rem 0 0;
+  font-size: 1.08rem;
+  color: var(--text);
+  border-left: 3px solid var(--accent);
+  padding-left: 1.1rem;
 }
 
-button:hover {
-  background-color: #a0522d;
+/* ---- FOOTER ---- */
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: .5rem;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 1.5rem clamp(1rem, 4vw, 3rem) 3rem;
+  font-family: "Space Mono", monospace;
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--muted);
 }
 
-button:focus,
-video:focus,
-a:focus {
-  outline: 3px solid #4a7c59;
-  outline-offset: 2px;
+/* ---- ACCESSIBILITY: focus ---- */
+:is(button, a, video):focus-visible {
+  outline: 3px solid var(--accent-2);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
-@media (max-width: 480px) {
-  h1 {
-    font-size: 1.5rem;
-  }
-  .container {
-    padding: 1rem;
-  }
-  button {
-    width: 100%;
-  }
+/* ---- MOTION: load reveal ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: rise .7s ease forwards;
+}
+.stage.reveal { animation-delay: .12s; }
+@keyframes rise {
+  to { opacity: 1; transform: none; }
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 600px) {
+  .topbar { flex-direction: column; align-items: flex-start; }
+  .stage__frame { box-shadow: 8px 8px 0 0 color-mix(in srgb, var(--accent) 35%, transparent); }
+  .btn { width: 100%; justify-content: center; }
+  .footer { flex-direction: column; }
+}
+
+/* ---- REDUCED MOTION ---- */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+  .reveal { opacity: 1; transform: none; animation: none; }
+  html { scroll-behavior: auto; }
 }
